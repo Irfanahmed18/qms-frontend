@@ -14,7 +14,6 @@ import api from "../apiUtil";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import { Link as RouterLink} from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 
 function Copyright(props) {
@@ -32,16 +31,20 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({setNewUser, setUser, newUser}) {
 
     const {register, handleSubmit, setError, formState: {errors}} = useForm();
 
 
-    const navigate = useNavigate();
 
     const handleSubmitButton = async (event) => {
-        await api.usersignup(event);
-        setError('email', { type: 'error', message: 'User Name Already Exists' })
+        let response = await api.usersignup(event);
+        if (response?.error_message) {
+            setError('email', { type: 'error', message: response.error_message })
+        }
+        else {
+            setUser(response);
+        }
     };
 
     return (
@@ -99,7 +102,10 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
-                                    {...register("email", { required: "Email Address is required." })}
+                                    {...register("email", { required: "Email Address is required.", pattern: {
+                                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                            message: 'Please enter a valid email',
+                                        } })}
                                     error={Boolean(errors.email)}
                                     helperText={errors.email?.message}
                                 />
@@ -113,7 +119,10 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
-                                    {...register("password", { required: "Password is required."})}
+                                    {...register("password", { required: "Password is required.", minLength: {
+                                            value: 8,
+                                            message: "Password must have at least 8 characters"
+                                        }})}
                                     error={Boolean(errors.password)}
                                     helperText={errors.password?.message}
                                 />
@@ -200,9 +209,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <RouterLink to={"/sign-in"}>
-                                    Already have an account? Sign in
-                                </RouterLink>
+                                <Button onClick={() => setNewUser(!newUser)}>Already a user ?</Button>
                             </Grid>
                         </Grid>
                     </Box>

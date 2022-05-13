@@ -1,25 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './index.css';
-import App from './App';
-import SignIn from "./signup/signin";
-import Homepage from "./homepage/homepage";
-import AddQuestion from "./homepage/newquestion";
 import reportWebVitals from './reportWebVitals';
-import {CssBaseline} from "@mui/material";
+import App from "./App";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App/>}/>
-            <Route path="sign-in" element={<SignIn/>}/>
-            <Route path="homepage" element={<Homepage/>}/>
-            <Route path="addQuestion" element={<AddQuestion/>}/>
-        </Routes>
-        <CssBaseline/>
-    </BrowserRouter>
+    <App/>
+    /*<Box sx={{flexGrow: 1}}>
+        <AppBar position="static">
+            <Toolbar sx={{display: "flex", justifyContent: "center"}}>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    sx={{mr: 2}}
+                >
+                    <BlurOnSharpIcon/>
+                </IconButton>
+                <Typography variant="h6" component="div">
+                    Stack Overflow ++
+                </Typography>
+            </Toolbar>
+        </AppBar>
+    </Box>*/
 );
 
 // If you want to start measuring performance in your app, pass a function

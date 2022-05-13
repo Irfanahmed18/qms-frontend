@@ -30,21 +30,32 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({setUser, newUser, setNewUser}) {
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, watch, setError, formState: {errors}} = useForm();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailMessage, setEmailMessage] = useState('');
 
-    const handleSubmitButton = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    const handleSubmitButton = async (event) => {
         const user_info = {
-            email: data.get('email'),
-            password: data.get('password')
+            email: event.email,
+            password: event.password
         };
-        api.usersignup(user_info);
+        if ((/$^|.+@.+..+/).test(event.email)) {
+            let res = await api.usersignin(user_info);
+            if (res?.error) {
+                setError('email', { type: 'error', message: res.error })
+                setError('password', { type: 'error', message: res.error })
+            }
+            else {
+                setUser(res);
+            }
+        }
+        else {
+            setEmailMessage("Please Enter Valid Email Id");
+        }
     };
 
     return (
@@ -63,7 +74,7 @@ export default function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign In
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit(handleSubmitButton)} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -75,8 +86,11 @@ export default function SignIn() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
-                                    {...register("email", { required: "Email Address is required." })}
-                                    error={Boolean(errors.email)}
+                                    {...register("email", { required: "Email Address is required.", pattern: {
+                                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                            message: 'Please enter a valid email',
+                                        } })}
+                                    error={Boolean(errors.email || emailMessage)}
                                     helperText={errors.email?.message}
                                 />
                             </Grid>
@@ -101,8 +115,9 @@ export default function SignIn() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            Sign In
                         </Button>
+                        <Button onClick={() => setNewUser(!newUser)}>New User ?</Button>
                     </Box>
                 </Box>
             </Container>

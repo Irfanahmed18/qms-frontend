@@ -1,22 +1,16 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import HelpIcon from '@mui/icons-material/Help';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from "react-router-dom";
-import AddQuestion from "./newquestion";
-import Content from "./content";
+import {useNavigate} from "react-router-dom";
+import Controls from "../components/controls/Controls";
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -44,6 +38,9 @@ function Header() {
                         <Grid item xs />
                         <Grid item>
                             Profile
+                        </Grid>
+                        <Grid item>
+                            <Controls.Button text="sdasasdasd"/>
                         </Grid>
                         <Grid item>
                             <IconButton color="inherit" sx={{ p: 0.5 }}>
