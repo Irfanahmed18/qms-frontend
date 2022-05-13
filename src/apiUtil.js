@@ -47,6 +47,10 @@ const api = {
     get_filtered_ques: async (data) => {
         let res = await postData(baseUrl +'search', data);
         return res;
+    },
+    update_profile: async (data) => {
+        let res = await postData(baseUrl + 'update-profile', data);
+        return res;
     }
 
 }
