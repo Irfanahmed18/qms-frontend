@@ -10,7 +10,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import StarIcon from '@mui/icons-material/Star';
 import apiUtil from "../apiUtil";
 
-export const IndivQuestionAnswer = ({question, user, setUpdateQues}) => {
+export const IndivQuestionAnswer = ({question, user, setUpdateQues, categories}) => {
     const [openPopup, setOpenPopup] = React.useState(false);
 
     return (
@@ -20,6 +20,7 @@ export const IndivQuestionAnswer = ({question, user, setUpdateQues}) => {
                     <Typography gutterBottom variant="h5" component="div">
                         {question.title}
                     </Typography>
+                    <Typography variant='overline'>{categories.find(i => i.id == question?.topic_id).topic_name}</Typography>
                     <Typography variant="h6" color="text.secondary">
                         {question.body}
                     </Typography>

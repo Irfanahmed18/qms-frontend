@@ -45,7 +45,7 @@ export const AllActivity = ({questions, user, setUpdateQues, categories, setFilt
 
             <br/>
             <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <QuestionAnswers questions={catFilter == '' || catFilter == '999' ? questions : questions.filter(i => i.topic_id == catFilter)} user={user} setUpdateQues={setUpdateQues}/>
+                <QuestionAnswers categories={categories} questions={catFilter == '' || catFilter == '999' ? questions : questions.filter(i => i.topic_id == catFilter)} user={user} setUpdateQues={setUpdateQues}/>
             </Container>
         </>
     )

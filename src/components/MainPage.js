@@ -120,7 +120,7 @@ export const MainPage = ({user}) => {
                     {
                         value === 0 && <AllActivity questions={questions} updateQues={updateQues} user={user} setUpdateQues={setUpdateQues} categories={categories} setFilterClause={setFilterClause}/>
                     }
-                    {value === 1 && (<UserActivity questions={userQuestions} updateQues={updateQues} user={user} setUpdateQues={setUpdateQues} user={user}/>)}
+                    {value === 1 && (<UserActivity questions={userQuestions} updateQues={updateQues} user={user} setUpdateQues={setUpdateQues} user={user} categories={categories}/>)}
                     {value === 2 && (<UserProfile user={user}/>)}
                 </Paper>
             </Container>
