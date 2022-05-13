@@ -52,8 +52,18 @@ export const UserProfile = ({user}) => {
                             <Typography variant='body1'>Status : {userData?.status}</Typography>
                             <Typography variant='body1'>Description: {userData?.profile}</Typography>
                             <br/>
-                            <Input value={userDesc} label='Update Profile Description' onChange={(e) => {setUserDesc(e.target.value)}}/>
-                            <Button text='Update' onClick={async () => {await apiUtil.update_profile({user_id: user.id, profile: userDesc}); setUpdateUser(true);}}/>
+                            <Input value={userDesc} label='Update Profile Description' onChange={(e) => {
+                                setUserDesc(e.target.value)
+                            }}/>
+                            <Button text='Update' onClick={async () => {
+                                if(userDesc == '') {
+                                    window.alert("Please enter desc");
+                                }
+                                else {
+                                    await apiUtil.update_profile({user_id: user.id, profile: userDesc});
+                                    setUpdateUser(true);
+                                }
+                            }}/>
                         </Grid>
                     </Grid>
                 </CardContent>
